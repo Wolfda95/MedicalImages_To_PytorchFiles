@@ -23,4 +23,6 @@ Tutorial von Monai (https://monai.io/) mit leichten Abänderungen von mit für S
 
 ### "pt_dataset.py"
 
-So können die in "3DDICOM_to_2DTorch.py" erzeugten PyTorch Daten geladen werden (das rufe ich in "Segmentation_Monai_PTLightning.ipynb" kurz vor dem Training auf) 
+So können die in "3DDICOM_to_2DTorch.py" erzeugten PyTorch Daten geladen werden.
+Das rufe ich in "Segmentation_Monai_PTLightning.ipynb" kurz vor dem Training auf damit die Daten richtig geladen werden.
+Das kann für jeden anderen Trainingsaufbau auch verwendet werden 
