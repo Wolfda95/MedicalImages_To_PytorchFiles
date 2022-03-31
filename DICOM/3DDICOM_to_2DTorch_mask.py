@@ -1,4 +1,4 @@
-# 3D DICOM to 2D PyTorch File
+# 3D DICOM to 2D PyTorch File with mask
 
 import glob # Pade einlesen
 import pydicom as dicom # Dicom Einlesen
@@ -137,11 +137,14 @@ def save(mask, image, save_path, i, w1, w2):
 
     #print(patient_pixels.shape)
 
-    # Resize [48,800,800]
+    #  Resize [48,800,800]
     #patient_pixels = scipy.ndimage.zoom(patient_pixels, (min(1, (48 / patient_pixels.shape[0])), (800 / patient_pixels.shape[1]), (800 / patient_pixels.shape[2])),mode="nearest", grid_mode=True)
 
     # Torch tensoren können keine negativen Zahlen -> deshalb normalisieren
     patient_pixels = min_max_normalization(patient_pixels, 0.001)
+
+    # Resize [48,800,800]
+    # patient_pixels = scipy.ndimage.zoom(patient_pixels, (min(1, (48 / patient_pixels.shape[0])), (800 / patient_pixels.shape[1]), (800 / patient_pixels.shape[2])),mode="nearest", grid_mode=True)
 
     # Numpy -> Torch
     pixel_image = torch.from_numpy(patient_pixels)
@@ -155,10 +158,12 @@ def save(mask, image, save_path, i, w1, w2):
     # convert to float32
     pixel_mask = pixel_mask.astype(np.float32)
 
-    #print(pixel_mask.shape)
-
     # Resize [48,800,800]
-    #pixel_mask = scipy.ndimage.zoom(pixel_mask, (min(1, (48 / pixel_mask.shape[0])), (800 / pixel_mask.shape[1]), (800 / pixel_mask.shape[2])), mode="nearest", grid_mode=True)
+    # pixel_mask = scipy.ndimage.zoom(pixel_mask, (min(1, (48 / pixel_mask.shape[0])), (800 / pixel_mask.shape[1]), (800 / pixel_mask.shape[2])), mode="nearest", grid_mode=True)
+
+    # Numpy -> Torch
+    pixel_mask = torch.from_numpy(pixel_mask)
+    pixel_mask = pixel_mask.to(torch.float16)
 
     # ----------------------- 2D --------------------------------------------------------------------
     for i in range(len(pixel_image)):
@@ -171,19 +176,9 @@ def save(mask, image, save_path, i, w1, w2):
         pixel_image = pixel_image.unsqueeze(0).float()
         pixel_mask = pixel_mask.unsqueeze(0).float()
 
-        # Resize [48,800,800]
-        # patient_pixels = scipy.ndimage.zoom(patient_pixels, (min(1, (48 / patient_pixels.shape[0])), (800 / patient_pixels.shape[1]), (800 / patient_pixels.shape[2])),mode="nearest", grid_mode=True)
-        # pixel_mask = scipy.ndimage.zoom(pixel_mask, (min(1, (48 / pixel_mask.shape[0])), (800 / pixel_mask.shape[1]), (800 / pixel_mask.shape[2])), mode="nearest", grid_mode=True)
-
-        # Numpy -> Torch
-        pixel_new = torch.from_numpy(patient_pixels)
-        pixel_new = pixel_new.to(torch.float16)
-        pixel_mask = torch.from_numpy(pixel_mask)
-        pixel_mask = pixel_mask.to(torch.float16)
-
         # Save
         path = save_path + "/" + str(i) + ".pt"
-        torch.save({"vol": pixel_new, "mask": pixel_mask}, path)
+        torch.save({"vol": pixel_image, "mask": pixel_mask}, path)
 
 
 # =============================================================================
