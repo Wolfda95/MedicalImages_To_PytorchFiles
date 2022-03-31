@@ -11,6 +11,16 @@ Output:
 - PyTorch File (.pt) for each slice 
 
  At the bottom, there are the "ToDos" -> start there
+ 
+ ### "3DDICOM_to_2Djpeg.py"
+
+Imput: 
+- DICOM Images 
+
+Output: 
+- jpeg file for each slice 
+
+ At the bottom, there are the "ToDos" -> start there
 
 ### "3DDICOM_to_2DTorch_mask.py"
 
