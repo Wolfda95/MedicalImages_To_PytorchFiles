@@ -5,24 +5,34 @@
 ### "3DDICOM_to_2DTorch.py"
 
 Imput: 
+- DICOM Images 
+
+Output: 
+- PyTorch File (.pt) for each slice 
+
+ At the bottom, there are the "ToDos" -> start there
+
+### "3DDICOM_to_2DTorch_mask.py"
+
+Imput: 
 - DICOM Images of one Folder with several DICOM Files per 3d Image 
 - DICOM Images with segmentation from syngo.via of one Folder with several DICOM Files per 3d Image (or with samll changes in the Programm also with Numpy Masks (follow ###))
 
 Output: 
-- PyTorch File (.pt) der das eine Schicht von einem Bild und die dazugehörige Schicht der Maske ernthält
+- PyTorch File (.pt) for each slice with the corresbonding mask
 
-Unten sind die "ToDos" -> da starten 
+At the bottom, there are the "ToDos" -> start there 
 
 ### "Visualize_PytorchFiles.py"
 
-Damit kann man die PyTorch Bilder anschauen 
+Visualize the PyTorch images
 
 ### "Segmentation_Monai_PTLightning.ipynb"
 
-Tutorial von Monai (https://monai.io/) mit leichten Abänderungen von mit für Segmenterung mit PyTorch Lighning 
+Tutorial from Monai (https://monai.io/) with slightly changes, for Segmentation with PyTorch Lighning 
 
 ### "pt_dataset.py"
 
-So können die in "3DDICOM_to_2DTorch.py" erzeugten PyTorch Daten geladen werden.
-Das rufe ich in "Segmentation_Monai_PTLightning.ipynb" kurz vor dem Training auf damit die Daten richtig geladen werden.
-Das kann für jeden anderen Trainingsaufbau auch verwendet werden 
+This is how the PyTorch data generated in "3DDICOM_to_2DTorch.py" can be loade druing training.
+I call this in "Segmentation_Monai_PTLightning.ipynb" just before the training so that the data is loaded correctly.
+This can be used for any other training setup as well 
