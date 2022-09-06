@@ -16,7 +16,7 @@ Imput:
 - nifti Images 
 
 Output: 
-- png 
+- png for each slice
 
 
 ## DICOM:
