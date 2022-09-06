@@ -1,5 +1,24 @@
 # MedicalImages_To_PytorchFiles
 
+## Nifti:
+
+### "3Dnifit_to_3Dpt"
+
+Imput: 
+- nifti Images 
+
+Output: 
+- PyTorch File (.pt) 
+
+### "3Dnifit_to_2Dpng"
+
+Imput: 
+- nifti Images 
+
+Output: 
+- png 
+
+
 ## DICOM:
 
 ### "3DDICOM_to_2DTorch.py"
